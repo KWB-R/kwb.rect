@@ -22,4 +22,4 @@ Imports:
     kwb.utils,
     magrittr
 Remotes:
-    github::KWB-R/kwb.utils
+    github::KWB-R/kwb.utils@dev
