@@ -1,0 +1,19 @@
+Package: kwb.rect
+Title: R Package for Plotting Rectangles
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Hauke", "Sonnenberg", , "hauke.sonnenberg@kompetenz-wasser.de", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9134-2871")),
+    person("Kompetenzzentrum Wasser Berlin gGmbH (KWB)", role = "cph")
+  )
+Description: This package provides functions to define and plot
+    rectangles, e.g. to plot rectangles side-by-side or on top of each
+    other.
+License: MIT + file LICENSE
+URL: https://github.com/KWB-R/kwb.rect
+BugReports: https://github.com/KWB-R/kwb.rect/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Suggests: 
+    covr
