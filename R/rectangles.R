@@ -56,6 +56,12 @@ init_plot <- function(
 }
 
 # move -------------------------------------------------------------------------
+
+#' Generic Function to Move Objects
+#'
+#' @param x objects to be moved
+#' @param \dots arguments passed to class methods
+#' @export
 move <- function(x, ...)
 {
   UseMethod("move")
