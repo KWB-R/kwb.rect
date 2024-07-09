@@ -4,10 +4,10 @@
 \alias{move}
 \title{Generic Function to Move Objects}
 \usage{
-move(x, ...)
+move(rects, ...)
 }
 \arguments{
-\item{x}{objects to be moved}
+\item{rects}{objects to be moved}
 
 \item{\dots}{arguments passed to class methods}
 }

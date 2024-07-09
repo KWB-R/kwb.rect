@@ -5,7 +5,7 @@
 \title{Move Rectangles}
 \usage{
 \method{move}{rects}(
-  x,
+  rects,
   dx = 0,
   dy = 0,
   top = NULL,
@@ -17,7 +17,7 @@
 )
 }
 \arguments{
-\item{x}{A "rects" object}
+\item{rects}{A "rects" object}
 
 \item{dx}{delta x}
 

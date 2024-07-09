@@ -25,9 +25,9 @@ find_lim <- function(r, axis = "x")
 }
 
 # get_mids ---------------------------------------------------------------------
-get_mids <- function(rdf)
+get_mids <- function(rects)
 {
-  data <- select_columns(rdf, c("llx", "lly", "w", "h"))
+  data <- select_columns(rects, c("llx", "lly", "w", "h"))
 
   data.frame(
     x = data$llx + data$w/2,
@@ -59,10 +59,10 @@ init_plot <- function(
 
 #' Generic Function to Move Objects
 #'
-#' @param x objects to be moved
+#' @param rects objects to be moved
 #' @param \dots arguments passed to class methods
 #' @export
-move <- function(x, ...)
+move <- function(rects, ...)
 {
   UseMethod("move")
 }
@@ -71,7 +71,7 @@ move <- function(x, ...)
 
 #' Move Rectangles
 #'
-#' @param x A "rects" object
+#' @param rects A "rects" object
 #' @param dx delta x
 #' @param dy delta y
 #' @param top top position
@@ -81,10 +81,9 @@ move <- function(x, ...)
 #' @param each logical indicating whether to move each rectangle or the group of
 #'   rectangles
 #' @param \dots additional arguments (currently not used)
-#' @method move rects
 #' @export
 move.rects <- function(
-    x,
+    rects,
     dx = 0,
     dy = 0,
     top = NULL,
@@ -95,7 +94,7 @@ move.rects <- function(
     ...
 )
 {
-  check_rects(rdf)
+  check_rects(rects)
 
   #dx = 0; dy = 0; top = NULL; bottom = NULL; left = NULL; right = NULL
   is_set <- !sapply(FUN = is.null, list(
@@ -105,31 +104,47 @@ move.rects <- function(
     right = right
   ))
 
-  #rdf <- as_data_frame(r)
-
   if (is_set["top"]) {
-    upper_y <- rdf$lly + rdf$h
+    upper_y <- rects$lly + rects$h
     dy <- top - if (each) upper_y else max(upper_y)
   } else if (is_set["bottom"]) {
-    lower_y <- rdf$lly
+    lower_y <- rects$lly
     dy <- bottom - if (each) lower_y else min(lower_y)
   }
 
   if (is_set["left"]) {
-    left_x <- rdf$llx
+    left_x <- rects$llx
     dx <- left - if (each) left_x else min(left_x)
   } else if (is_set["right"]) {
-    right_x <- rdf$llx + rdf$w
+    right_x <- rects$llx + rects$w
     dx <- right - if (each) right_x else max(right_x)
   }
 
-  rdf$llx <- rdf$llx + dx
-  rdf$lly <- rdf$lly + dy
+  rects$llx <- rects$llx + dx
+  rects$lly <- rects$lly + dy
 
-  rdf
+  rects
 }
 
 # new_rects --------------------------------------------------------------------
+
+#' Create a "rects" object
+#'
+#' @param w width(s) of rectangle(s)
+#' @param h height(s) of rectangle(s)
+#' @param llx x position(s) of lower left corner(s) of rectangle(s)
+#' @param lly y position(s) of lower left corner(s) of rectangle(s)
+#' @param lbl_text text label(s)
+#' @param lbl_align label alignment(s), default: "centre"
+#' @param density density of shade lines. Default: -1
+#' @param angle angle of shade lines. Default: 45
+#' @param col fill colour(s) of rectangles
+#' @param border border colour(s) of rectangles
+#' @param lty line type(s) of rectangles
+#' @param lwd line width(s) of rectangles
+#' @param n number of rectangles. All other arguments are recycled to vectors of
+#'   this length.
+#' @export
 new_rects <- function(
     w = 1,
     h = 1,
@@ -250,7 +265,6 @@ plot.rects <- function(
 }
 
 # separate ---------------------------------------------------------------------
-#' @rdname separate.rects
 separate <- function(x, ...)
 {
   UseMethod("separate")
@@ -259,12 +273,11 @@ separate <- function(x, ...)
 # separate.rects ---------------------------------------------------------------
 
 #' Separate Rectangles
-#'#'
+#'
 #' @param x "rects" object
 #' @param dx space in horizontal direction to be put in between the rectangles
 #' @param dy space in vertical direction to be put in between the rectangles
 #' @param \dots further arguments (currently not used)
-#' @rdname separate.rects
 #' @export
 separate.rects <- function(x, dx = 0, dy = 0, ...)
 {
@@ -275,24 +288,49 @@ separate.rects <- function(x, dx = 0, dy = 0, ...)
   x
 }
 
-stack <- function(x, ...)
+#' Stack Rectangles
+#'
+#' @param rects a "rects" object
+#' @param \dots further arguments passed to \code{stack.rects}
+#' @export
+stack <- function(rects, ...)
 {
   UseMethod("stack")
 }
 
 # stack.rects ------------------------------------------------------------------
+
+#' Stack Rectangles Vertically or Horizontally
+#'
+#' @param rects a "rects" object as returned by \code{\link{new_rects}}
+#' @param horizontal whether to stack the rectangles horizontally or not. The
+#'   default is \code{FALSE}, i.e. rectangles are stacked vertically.
+#' @param delta space between rectangles, default: 0
+#' @param reverse whether or not to reverse the stack order. The default is
+#'   \code{FALSE}.
+#' @param \dots not used
 #' @export
-stack.rects <- function(x, horizontal = FALSE, delta = 0, reverse = FALSE, ...)
+#' @examples
+#' rects <- new_rects(w = 1:3)
+#' stacked_vertically <- stack(rects)
+#' stacked_horizontally <- stack(rects, horizontal = TRUE)
+#' plot(stacked_vertically, add = FALSE)
+#' plot(stacked_horizontally, add = FALSE)
+#' stacked_vertically_spaced <- stack(rects, delta = 0.1)
+#' stacked_horizontally_spaced <- stack(rects, horizontal = TRUE, delta = 0.1)
+#' plot(stacked_vertically_spaced, add = FALSE)
+#' plot(stacked_horizontally_spaced, add = FALSE)
+stack.rects <- function(rects, horizontal = FALSE, delta = 0, reverse = FALSE, ...)
 {
-  check_rects(x)
+  check_rects(rects)
 
-  x <- x[[ifelse(horizontal, "w", "h")]]
+  bar_heights <- rects[[ifelse(horizontal, "w", "h")]]
 
-  positions <- stacked_positions(x, delta = delta, reverse = reverse)
+  positions <- stacked_positions(bar_heights, delta = delta, reverse = reverse)
 
-  x[[ifelse(horizontal, "llx", "lly")]] <- positions[, "lower"]
+  rects[[ifelse(horizontal, "llx", "lly")]] <- positions[, "lower"]
 
-  x
+  rects
 }
 
 # stacked_positions ------------------------------------------------------------
@@ -314,10 +352,10 @@ to_label <- function(key, value)
 }
 
 # to_rect_args -----------------------------------------------------------------
-to_rect_args <- function(rdf)
+to_rect_args <- function(rects)
 {
   cols <- c("llx", "lly", "w", "h")
-  data <- select_columns(rdf, cols)
+  data <- select_columns(rects, cols)
 
   coords <- data.frame(
     xleft = data$llx,
@@ -326,7 +364,7 @@ to_rect_args <- function(rdf)
     ytop = data$lly + data$h
   )
 
-  cbind(coords, rdf[, setdiff(names(rdf), cols), drop = FALSE])
+  cbind(coords, rects[, setdiff(names(rects), cols), drop = FALSE])
 }
 
 # unlabel_and_dash -------------------------------------------------------------
