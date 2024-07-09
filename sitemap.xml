@@ -1,42 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/404.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/c.rects.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/move.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/move.rects.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/plot.rects.html</loc>
-  </url>
-  <url>
-    <loc>https://kwb-r.github.io/kwb.rect/reference/separate.rects.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://kwb-r.github.io/kwb.rect/404.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/authors.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/index.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/LICENSE-text.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/LICENSE.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/news/index.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/c.rects.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/index.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/move.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/move.rects.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/new_rects.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/pipe.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/plot.rects.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/separate.rects.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/stack.html</loc></url>
+<url><loc>https://kwb-r.github.io/kwb.rect/reference/stack.rects.html</loc></url>
 </urlset>
+
